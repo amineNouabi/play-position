@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Platform, View } from 'react-native';
 import LanguageButtons from '~/components/LanguageButtons';
 
 import { OAuthButtons } from '~/components/OAuthButtons';
@@ -28,12 +28,14 @@ export default function Register() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    WebBrowser.warmUpAsync();
-    return () => {
-      WebBrowser.coolDownAsync();
-    };
-  }, []);
+  if (Platform.OS === 'android')
+    useEffect(() => {
+      WebBrowser.warmUpAsync();
+      return () => {
+        WebBrowser.coolDownAsync();
+      };
+    }, []);
+
   useEffect(() => {
     if (session) router.replace('/');
   }, [session]);
@@ -77,8 +79,8 @@ export default function Register() {
     }
   };
   return (
-    <View className="flex-col flex-1 items-center p-6 justify-center">
-      <Card className="p-5 w-full">
+    <View className="flex-1 items-center p-6 justify-center">
+      <Card className="p-5 w-full max-w-sm">
         <CardTitle className="mb-5 p-1">{t('Register')} :</CardTitle>
         <Text>{t('Email')} :</Text>
         <Input

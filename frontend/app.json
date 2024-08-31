@@ -8,31 +8,32 @@
     "scheme": "play-position",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/logo1024x1024-white-bg.jpg",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+    "image": "./assets/images/logo1024x1024-white-bg.jpg",
+    "resizeMode": "contain",
+    "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+    "supportsTablet": true
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/logo1024x1024.png",
-        "backgroundColor": "#ffffff"
-      }
+    "adaptiveIcon": {
+      "foregroundImage": "./assets/images/logo1024x1024.png",
+      "backgroundColor": "#ffffff"
+    }
     },
     "web": {
-      "bundler": "metro",
-      "output": "single",
-      "favicon": "./assets/images/favicon.png"
+    "bundler": "metro",
+    "output": "single",
+    "favicon": "./assets/images/logo1024x1024.png"
     },
     "plugins": [
-      "expo-router",
-      "expo-secure-store",
-      "expo-localization"
+    "expo-router",
+    "expo-secure-store",
+    "expo-localization"
     ],
     "experiments": {
-      "typedRoutes": true
+    "typedRoutes": true
     }
   }
 }
+  

@@ -1,5 +1,3 @@
-import '~/global.css';
-import "~/i18n";
 
 import { SplashScreen, Stack } from 'expo-router';
 import * as React from 'react';
@@ -35,6 +33,7 @@ export default function RootLayout() {
           options={{
             title: t('Authentification'),
             headerRight: () => <ThemeToggle />,
+            headerTitleAlign: 'center',
           }}
         />
       </Stack>

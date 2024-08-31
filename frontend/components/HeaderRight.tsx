@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 import { useAuth } from '~/hooks/useAuth';
 import { LogOut } from '~/lib/icons';
 import { ThemeToggle } from './ThemeToggle';
@@ -9,7 +9,9 @@ export function HeaderRight() {
   return (
     <View className="flex-row mr-5 items-center gap-1">
       <ThemeToggle />
-      <LogOut size={21} onPress={signOut} className="ml-6 text-foreground" />
+      <Pressable onPress={signOut}>
+        <LogOut size={21} className="ml-5 text-foreground" />
+      </Pressable>
     </View>
   );
 }

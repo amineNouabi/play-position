@@ -1,9 +1,12 @@
-import '~/shims';
+import '@expo/metro-runtime';
+
+import './global.css';
+import './shims';
+
+import "./i18n";
 
 import { registerRootComponent } from 'expo';
 import { ExpoRoot } from 'expo-router';
-
-// https://docs.expo.dev/router/reference/troubleshooting/#expo_router_app_root-not-defined
 
 // Must be exported or Fast Refresh won't update the context
 export function App() {
@@ -12,3 +15,8 @@ export function App() {
 }
 
 registerRootComponent(App);
+
+
+// import { App } from 'expo-router/build/qualified-entry';
+// import { renderRootComponent } from 'expo-router/build/renderRootComponent';
+// renderRootComponent(App);

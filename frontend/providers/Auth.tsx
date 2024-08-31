@@ -7,7 +7,7 @@ import { signInWithEmail, signUpWithEmail } from '~/lib/api/auth';
 import { supabase } from '~/lib/supabase';
 
 import { useToast } from '~/hooks/useToast';
-import { type AuthContext } from '~/types/AuthContext';
+import { ActiveProvider, type AuthContext } from '~/types/AuthContext';
 
 export const authContext = createContext<AuthContext | null>(null);
 
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const performOAuth = async (provider: "google" | "facebook", redirectTo: string) => {
+  const performOAuth = async (provider: ActiveProvider, redirectTo: string) => {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {

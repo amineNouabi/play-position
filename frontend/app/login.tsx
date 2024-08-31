@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import * as WebBrowser from 'expo-web-browser';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, Platform, View } from 'react-native';
 
 import { useAuth } from '~/hooks/useAuth';
 import { useToast } from '~/hooks/useToast';
@@ -29,17 +29,18 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    WebBrowser.warmUpAsync();
-    return () => {
-      WebBrowser.coolDownAsync();
-    };
-  }, []);
+  if (Platform.OS === "android")
+    useEffect(() => {
+      WebBrowser.warmUpAsync();
+      return () => {
+        WebBrowser.coolDownAsync();
+      };
+    }, []);
 
   useEffect(() => {
-    if (session) {
+    if (session)
       router.replace('/');
-    }
+
   }, [session]);
 
   function _onChangeText(field: 'email' | 'password') {
@@ -85,8 +86,8 @@ export default function Login() {
   };
 
   return (
-    <View className="flex-col flex-1 items-center p-6 justify-center">
-      <Card className="p-5 native:w-full web:w-min-[600px]">
+    <View className="flex-1 items-center p-6 justify-center">
+      <Card className="p-5 w-full max-w-sm">
         <CardTitle className="mb-5 p-2">{t('Login')} :</CardTitle>
         <Text>{t('Email')} :</Text>
         <Input
