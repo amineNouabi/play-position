@@ -8,9 +8,11 @@
 Using `conda`:
 
 ```bash
-conda create --name play-position
+conda create --name play-position python=3.11
 conda activate play-position
-conda install --file requirements.txt
+
+conda install poetry
+poetry install
 ```
 
 ## Usage
@@ -19,8 +21,5 @@ conda install --file requirements.txt
 cd backend
 
 
-python -m api.v1.app # for debug mode
-# or with fastapi cli
-fastapi dev api/v1/app.py # dev mode
-fastapi run api/v1/app.py # production mode
+uvicorn api.v1.app:app --reload --host 0.0.0.0 --port 5000
 ```

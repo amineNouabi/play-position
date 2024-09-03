@@ -1,8 +1,8 @@
-import React from 'react';
-import { Pressable, View } from 'react-native';
-import { useAuth } from '~/hooks/useAuth';
-import { LogOut } from '~/lib/icons';
-import { ThemeToggle } from './ThemeToggle';
+import React from "react";
+import { Pressable, View } from "react-native";
+import { useAuth } from "~/hooks/useAuth";
+import { LogOut } from "~/lib/icons";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function HeaderRight() {
   const { signOut } = useAuth();

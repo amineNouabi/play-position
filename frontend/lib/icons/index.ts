@@ -4,5 +4,6 @@ import { Info } from "./Info";
 import { LogOut } from "./LogOut";
 import { MoonStar } from "./MoonStar";
 import { Sun } from "./Sun";
+import { UserRound } from "./UserRound";
 
-export { AlertTriangle, CheckSquare, Info, LogOut, MoonStar, Sun };
+export { AlertTriangle, CheckSquare, Info, LogOut, MoonStar, Sun, UserRound };

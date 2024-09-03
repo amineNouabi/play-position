@@ -1,12 +1,12 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import i18next from 'i18next';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import i18next from "i18next";
 
-import { getLocales } from 'expo-localization';
-import { initReactI18next } from 'react-i18next';
+import { getLocales } from "expo-localization";
+import { initReactI18next } from "react-i18next";
 
-import ar from './ar/translations.json';
-import en from './en/translations.json';
-import fr from './fr/translations.json';
+import ar from "./ar/translations.json";
+import en from "./en/translations.json";
+import fr from "./fr/translations.json";
 
 const resources = {
   en: {
@@ -20,9 +20,9 @@ const resources = {
   },
 } as const;
 
-type Local = keyof typeof resources;
+export type Local = keyof typeof resources;
 
-const STORAGE_KEY = 'local' as const;
+const STORAGE_KEY = "local" as const;
 
 const getLocal = async (): Promise<Local | null> => {
   const local = await AsyncStorage.getItem(STORAGE_KEY);
@@ -47,7 +47,7 @@ const updateLanguage = async (lng: Local) => {
       setLocal(lng);
     })
     .catch((err) => {
-      console.log('Something went wrong while Changing i18n language');
+      console.log("Something went wrong while Changing i18n language");
       console.log(err);
     });
 };
@@ -64,7 +64,7 @@ async function initI18n() {
   i18next.use(initReactI18next).init({
     resources,
     lng: local,
-    fallbackLng: 'en',
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false,
     },
@@ -73,4 +73,4 @@ async function initI18n() {
 
 initI18n();
 
-export { getLocal, i18next, Local, setLocal, STORAGE_KEY, updateLanguage };
+export { getLocal, i18next, setLocal, STORAGE_KEY, updateLanguage };

@@ -1,21 +1,21 @@
-import { makeRedirectUri } from 'expo-auth-session';
-import { router } from 'expo-router';
-import * as WebBrowser from 'expo-web-browser';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { ActivityIndicator, Platform, View } from 'react-native';
-import LanguageButtons from '~/components/LanguageButtons';
+import { makeRedirectUri } from "expo-auth-session";
+import { router } from "expo-router";
+import * as WebBrowser from "expo-web-browser";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { ActivityIndicator, Platform, View } from "react-native";
+import LanguageButtons from "~/components/LanguageButtons";
 
-import { OAuthButtons } from '~/components/OAuthButtons';
-import { Button } from '~/components/ui/button';
-import { Card, CardFooter, CardTitle } from '~/components/ui/card';
-import { Input } from '~/components/ui/input';
-import { Separator } from '~/components/ui/separator';
-import { Text } from '~/components/ui/text';
+import { OAuthButtons } from "~/components/OAuthButtons";
+import { Button } from "~/components/ui/button";
+import { Card, CardFooter, CardTitle } from "~/components/ui/card";
+import { Input } from "~/components/ui/input";
+import { Separator } from "~/components/ui/separator";
+import { Text } from "~/components/ui/text";
 
-import { useAuth } from '~/hooks/useAuth';
-import { useToast } from '~/hooks/useToast';
-import { ActiveProvider } from '~/types/AuthContext';
+import { useAuth } from "~/hooks/useAuth";
+import { useToast } from "~/hooks/useToast";
+import { ActiveProvider } from "~/types/AuthContext";
 
 const redirectTo = makeRedirectUri();
 
@@ -24,30 +24,35 @@ export default function Register() {
   const { t } = useTranslation();
   const { session, signUp, performOAuth } = useAuth()!;
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fullname, setFullname] = useState("");
   const [loading, setLoading] = useState(false);
 
-  if (Platform.OS === 'android')
-    useEffect(() => {
+  useEffect(() => {
+    if (Platform.OS === "android") {
       WebBrowser.warmUpAsync();
       return () => {
         WebBrowser.coolDownAsync();
       };
-    }, []);
+    }
+  }, []);
 
   useEffect(() => {
-    if (session) router.replace('/');
+    if (session) router.replace("/");
   }, [session]);
 
-  function _onChangeText(field: 'email' | 'password') {
+  function _onChangeText(field: "email" | "password" | "fullname") {
     return (text: string) => {
       switch (field) {
-        case 'email':
+        case "email":
           setEmail(text);
           break;
-        case 'password':
+        case "password":
           setPassword(text);
+          break;
+        case "fullname":
+          setFullname(text);
           break;
       }
     };
@@ -59,13 +64,13 @@ export default function Register() {
     setLoading(false);
 
     if (error) {
-      console.log('Error Signing Up', error.message);
+      console.log("Error Signing Up", error.message);
       if (error.status) toast.error(error.message);
       else throw error;
       return;
     }
 
-    toast.success('Logged in successfully!');
+    toast.success("Logged in successfully!");
   }
 
   const onContinueWith = async (provider: ActiveProvider) => {
@@ -81,41 +86,49 @@ export default function Register() {
   return (
     <View className="flex-1 items-center p-6 justify-center">
       <Card className="p-5 w-full max-w-sm">
-        <CardTitle className="mb-5 p-1">{t('Register')} :</CardTitle>
-        <Text>{t('Email')} :</Text>
+        <CardTitle className="mb-5 p-1">{t("Register")} :</CardTitle>
+        <Text>{t("Email")} :</Text>
         <Input
           className="mb-3"
           editable={!loading}
-          placeholder={t('Email')}
-          onChangeText={_onChangeText('email')}
+          placeholder={t("Email")}
+          onChangeText={_onChangeText("email")}
         />
-        <Text>{t('Password')} :</Text>
+        <Text>{t("Password")} :</Text>
         <Input
           className="mb-6"
           editable={!loading}
-          placeholder={t('Password')}
-          onChangeText={_onChangeText('password')}
+          placeholder={t("Password")}
+          onChangeText={_onChangeText("password")}
           secureTextEntry
+        />
+        <Text>{t("Full name")} :</Text>
+
+        <Input
+          className="mb-6"
+          editable={!loading}
+          placeholder={t("Full name")}
+          onChangeText={_onChangeText("fullname")}
         />
         <Button disabled={loading} onPress={handleSubmit}>
           {loading ? (
             <ActivityIndicator color="white" size="small" />
           ) : (
-            <Text>{t('Register')}</Text>
+            <Text>{t("Register")}</Text>
           )}
         </Button>
         <View className="flex-row items-center justify-center mt-4 mb-0 pb-0">
-          <Text className="mr-2">{t('Already have an account')}?</Text>
+          <Text className="mr-2">{t("Already have an account")}?</Text>
 
           <Text
             className="text-blue-800 font-bold"
-            onPress={() => router.push('/login')}
+            onPress={() => router.push("/login")}
           >
-            {t('Login')}
+            {t("Login")}
           </Text>
         </View>
         <Separator className="mt-2" />
-        <CardTitle className="p-2 mt-5">{t('Or Continue with')} :</CardTitle>
+        <CardTitle className="p-2 mt-5">{t("Or Continue with")} :</CardTitle>
         <CardFooter className="flex-col m-0 p-0 mt-3 gap-3">
           <OAuthButtons onContinueWith={onContinueWith} disabled={loading} />
         </CardFooter>

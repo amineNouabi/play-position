@@ -1,18 +1,19 @@
-import * as React from 'react';
-import { Pressable } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import Toast, { ToastConfig } from 'react-native-toast-message';
-import { Alert, AlertDescription, AlertTitle } from '~/components/ui/alert';
-import { AlertTriangle } from '~/lib/icons/AlertTriangle';
-import { CheckSquare } from '~/lib/icons/CheckSquare';
-import { Info } from '~/lib/icons/Info';
+import * as React from "react";
+import { Pressable } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Toast, { ToastConfig } from "react-native-toast-message";
+import { Alert, AlertDescription, AlertTitle } from "~/components/ui/alert";
+import { AlertTriangle } from "~/lib/icons/AlertTriangle";
+import { CheckSquare } from "~/lib/icons/CheckSquare";
+import { Info } from "~/lib/icons/Info";
 
 /**
  * Temporary fix for warning when accessing useLayoutEffect on the server. See issue
  * https://github.com/calintamas/react-native-toast-message/issues/530
  */
-if (typeof document === 'undefined') {
+if (typeof document === "undefined") {
   // @ts-ignore
+  // eslint-disable-next-line import/namespace
   React.useLayoutEffect = React.useEffect;
 }
 

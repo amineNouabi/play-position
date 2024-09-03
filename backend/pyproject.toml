@@ -4,11 +4,15 @@ version = "0.1.0"
 description = ""
 authors = ["amineNouabi <aminenouabi9@gmail.com>"]
 readme = "README.md"
-package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.12"
-fastapi = {extras = ["standard"], version = "^0.112.2"}
+python = "^3.11"
+pydantic-settings = "^2.4.0"
+sqlalchemy = "^2.0.32"
+colorlog = "^6.8.2"
+fastapi = {extras = ["full"], version = "^0.112.2"}
+supabase-py-async = "^2.5.6"
+uvicorn = "^0.30.6"
 
 
 [build-system]

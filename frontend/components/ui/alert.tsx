@@ -1,29 +1,29 @@
-import { useTheme } from '@react-navigation/native';
-import { cva, type VariantProps } from 'class-variance-authority';
-import type { LucideIcon } from 'lucide-react-native';
-import * as React from 'react';
-import { Text, View, ViewStyle } from 'react-native';
-import { cn } from '~/lib/utils';
+import { useTheme } from "@react-navigation/native";
+import { cva, type VariantProps } from "class-variance-authority";
+import type { LucideIcon } from "lucide-react-native";
+import * as React from "react";
+import { Text, View, ViewStyle } from "react-native";
+import { cn } from "~/lib/utils";
 
 const alertVariants = cva(
-  'bg-background relative w-full rounded-lg border p-5 shadow shadow-foreground/10',
+  "bg-background relative w-full rounded-lg border p-5 shadow shadow-foreground/10",
   {
     variants: {
       variant: {
-        default: 'border-muted-foreground',
-        destructive: 'border-destructive',
-        success: 'border-emerald-500',
+        default: "border-muted-foreground",
+        destructive: "border-destructive",
+        success: "border-emerald-500",
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: "default",
     },
   },
 );
 
 const Alert = React.forwardRef<
   React.ElementRef<typeof View>,
-  Omit<React.ComponentPropsWithoutRef<typeof View>, 'style'> &
+  Omit<React.ComponentPropsWithoutRef<typeof View>, "style"> &
     VariantProps<typeof alertVariants> & {
       icon?: LucideIcon;
       style?: ViewStyle;
@@ -41,7 +41,7 @@ const Alert = React.forwardRef<
         role="alert"
         className={cn(
           alertVariants({ variant }),
-          !!Icon && 'ios:pl-[50] android:pl-[50] pl-[50px]',
+          !!Icon && "ios:pl-[50] android:pl-[50] pl-[50px]",
           className,
         )}
         {...props}
@@ -51,10 +51,10 @@ const Alert = React.forwardRef<
             <Icon
               size={21}
               color={
-                variant === 'destructive'
+                variant === "destructive"
                   ? colors.notification
-                  : variant === 'success'
-                    ? '#10b981'
+                  : variant === "success"
+                    ? "#10b981"
                     : colors.text
               }
             />
@@ -65,7 +65,7 @@ const Alert = React.forwardRef<
     );
   },
 );
-Alert.displayName = 'Alert';
+Alert.displayName = "Alert";
 
 const AlertTitle = React.forwardRef<
   React.ElementRef<typeof Text>,
@@ -74,13 +74,13 @@ const AlertTitle = React.forwardRef<
   <Text
     ref={ref}
     className={cn(
-      'mb-1.5 text-xl font-medium leading-none tracking-tight text-foreground',
+      "mb-1.5 text-xl font-medium leading-none tracking-tight text-foreground",
       className,
     )}
     {...props}
   />
 ));
-AlertTitle.displayName = 'AlertTitle';
+AlertTitle.displayName = "AlertTitle";
 
 const AlertDescription = React.forwardRef<
   React.ElementRef<typeof Text>,
@@ -88,10 +88,10 @@ const AlertDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <Text
     ref={ref}
-    className={cn('text-muted-foreground', className)}
+    className={cn("text-muted-foreground", className)}
     {...props}
   />
 ));
-AlertDescription.displayName = 'AlertDescription';
+AlertDescription.displayName = "AlertDescription";
 
 export { Alert, AlertDescription, AlertTitle };

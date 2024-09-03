@@ -1,19 +1,30 @@
-import { Session } from '@supabase/supabase-js';
-import * as QueryParams from 'expo-auth-session/build/QueryParams';
-import * as WebBrowser from 'expo-web-browser';
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { Session } from "@supabase/supabase-js";
+import * as QueryParams from "expo-auth-session/build/QueryParams";
+import * as WebBrowser from "expo-web-browser";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
-import { signInWithEmail, signUpWithEmail } from '~/lib/api/auth';
-import { supabase } from '~/lib/supabase';
+import { signInWithEmail, signUpWithEmail } from "~/lib/api/auth";
+import { supabase } from "~/lib/supabase";
 
-import { useToast } from '~/hooks/useToast';
-import { ActiveProvider, type AuthContext } from '~/types/AuthContext';
+import { useAppState } from "~/hooks/useAppState";
+import { useToast } from "~/hooks/useToast";
+import { ActiveProvider, type AuthContext } from "~/types/AuthContext";
 
 export const authContext = createContext<AuthContext | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const toast = useToast();
   const [session, setSession] = useState<Session | null>(null);
+
+  // Tells Supabase Auth to continuously refresh the session automatically
+  // if the app is in the foreground. When this is added, you will continue
+  // to receive `onAuthStateChange` events with the `TOKEN_REFRESHED` or
+  // `SIGNED_OUT` event if the user's session is terminated. This should
+  // only be registered once.
+  useAppState((status) => {
+    if (status === "active") supabase.auth.startAutoRefresh();
+    else supabase.auth.stopAutoRefresh();
+  });
 
   useEffect(() => {
     supabase.auth
@@ -22,11 +33,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (session) setSession(session);
       })
       .catch((error) => {
-        console.log('Error getting session', error.message);
+        console.log("Error getting session", error.message);
       });
 
     supabase.auth.onAuthStateChange((_event, session) => {
-      console.log('Auth State Change event: ', _event);
+      console.log("Auth State Change event: ", _event);
       setSession(session);
     });
   }, []);
@@ -35,7 +46,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      console.error('Error Signing Out', error.message);
+      console.error("Error Signing Out", error.message);
       if (error.status) {
         toast.error(error.message);
       } else throw error;
@@ -53,11 +64,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (error) throw error;
     const res = await WebBrowser.openAuthSessionAsync(
-      data?.url ?? '',
+      data?.url ?? "",
       redirectTo,
     );
 
-    if (res.type === 'success') {
+    if (res.type === "success") {
       const { url } = res;
       await createSessionFromUrl(url);
     }
