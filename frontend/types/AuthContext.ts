@@ -11,7 +11,11 @@ export type AuthContext = {
     email: string,
     password: string,
   ) => Promise<AuthTokenResponsePassword>;
-  signUp: (email: string, password: string) => Promise<AuthResponse>;
+  signUp: (
+    email: string,
+    password: string,
+    fullname: string,
+  ) => Promise<AuthResponse>;
   signOut: () => Promise<void>;
   performOAuth: (provider: ActiveProvider, redirectTo: string) => Promise<void>;
   createSessionFromUrl: (url: string) => Promise<Session | null>;

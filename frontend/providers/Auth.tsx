@@ -6,6 +6,7 @@ import { createContext, ReactNode, useEffect, useState } from "react";
 import { signInWithEmail, signUpWithEmail } from "~/lib/api/auth";
 import { supabase } from "~/lib/supabase";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useAppState } from "~/hooks/useAppState";
 import { useToast } from "~/hooks/useToast";
 import { ActiveProvider, type AuthContext } from "~/types/AuthContext";
@@ -15,6 +16,7 @@ export const authContext = createContext<AuthContext | null>(null);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const toast = useToast();
   const [session, setSession] = useState<Session | null>(null);
+  const queryClient = useQueryClient();
 
   // Tells Supabase Auth to continuously refresh the session automatically
   // if the app is in the foreground. When this is added, you will continue
@@ -51,6 +53,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         toast.error(error.message);
       } else throw error;
     }
+
+    queryClient.clear();
   };
 
   const performOAuth = async (provider: ActiveProvider, redirectTo: string) => {
@@ -80,7 +84,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (errorCode) throw new Error(errorCode);
     const { access_token, refresh_token } = params;
 
-    if (!access_token) return null;
+    if (!access_token || !refresh_token) return null;
 
     const { data, error } = await supabase.auth.setSession({
       access_token,

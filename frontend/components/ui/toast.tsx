@@ -14,7 +14,7 @@ import { Info } from "~/lib/icons/Info";
 if (typeof document === "undefined") {
   // @ts-ignore
   // eslint-disable-next-line import/namespace
-  React.useLayoutEffect = React.useEffect;
+  React.useLayoutEffect = React.useEAffect;
 }
 
 /**

@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException
-import uuid
 
 from core.deps import CurrentUser, SessionDep
+
+from schemas.profile import ProfileUpdate
 
 users_router = APIRouter()
 
@@ -17,7 +18,7 @@ async def get_profile(session: SessionDep, user: CurrentUser):
 
 
 @users_router.put("/profile")
-async def update_profile(session: SessionDep, user: CurrentUser, data: dict):
-    data["id"] = user.id
-    data, count = await session.from_("profiles").upsert(data).execute()
+async def update_profile(session: SessionDep, user: CurrentUser, data: ProfileUpdate):
+    print(data)
+    data, count = await session.from_("profiles").update(data).eq("id", str(user.id)).execute()
     return data

@@ -19,8 +19,15 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "incremental": true,
-    "noUncheckedIndexedAccess": true
+    "noUncheckedIndexedAccess": true,
+    "strict": true
   },
-  "include": ["index.js", "**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"],
-  "exclude": ["node_modules", "build", "dist", ".expo"]
+  "include": [
+    "index.js",
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts"
+  ],
+  "exclude": ["node_modules", "build", "dist", ".expo", "android", "ios"]
 }

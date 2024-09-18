@@ -22,7 +22,7 @@ const redirectTo = makeRedirectUri();
 export default function Register() {
   const toast = useToast();
   const { t } = useTranslation();
-  const { session, signUp, performOAuth } = useAuth()!;
+  const { session, signUp, performOAuth } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,7 +60,7 @@ export default function Register() {
 
   async function handleSubmit() {
     setLoading(true);
-    const { error } = await signUp(email, password);
+    const { error } = await signUp(email, password, fullname);
     setLoading(false);
 
     if (error) {

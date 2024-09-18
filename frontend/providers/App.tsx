@@ -1,10 +1,14 @@
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Theme, ThemeProvider } from "@react-navigation/native";
+import { PortalHost } from "@rn-primitives/portal";
 import {
   focusManager,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import { SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as React from "react";
@@ -80,13 +84,16 @@ export default function AppProvider({
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <SafeAreaProvider>
-          <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
-            <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
-            {children}
+        <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+          <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+          <SafeAreaProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+              <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
+              <PortalHost />
+            </GestureHandlerRootView>
             <ToastProvider />
-          </ThemeProvider>
-        </SafeAreaProvider>
+          </SafeAreaProvider>
+        </ThemeProvider>
       </AuthProvider>
     </QueryClientProvider>
   );

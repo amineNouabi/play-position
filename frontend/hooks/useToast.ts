@@ -5,7 +5,7 @@ export function useToast() {
   const insets = useSafeAreaInsets();
   const common = {
     topOffset: insets.top === 0 ? 12 : insets.top + 10,
-    visibilityTime: 2000,
+    visibilityTime: 4000,
   };
 
   return {

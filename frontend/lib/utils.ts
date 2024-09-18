@@ -4,10 +4,15 @@ import { clsx, type ClassValue } from "clsx";
 import * as SecureStore from "expo-secure-store";
 import type { LucideIcon } from "lucide-react-native";
 import { cssInterop } from "nativewind";
+import { PressableStateCallbackType } from "react-native";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
+}
+
+export async function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export function iconWithClassName(icon: LucideIcon) {
@@ -20,6 +25,16 @@ export function iconWithClassName(icon: LucideIcon) {
       },
     },
   });
+}
+
+export function isTextChildren(
+  children:
+    | React.ReactNode
+    | ((state: PressableStateCallbackType) => React.ReactNode),
+) {
+  return Array.isArray(children)
+    ? children.every((child) => typeof child === "string")
+    : typeof children === "string";
 }
 
 // As Expo's SecureStore does not support values larger than 2048
