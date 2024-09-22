@@ -13,7 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd frontend && pnpm i && pnpm build
+      - name: Install pnpm
+        run: npm install -g pnpm
+      - name: Install dependencies and build
+      - run: cd frontend && pnpm i && npx expo install --check && pnpm build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}

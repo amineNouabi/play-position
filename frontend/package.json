@@ -14,7 +14,8 @@
     "clean:build": "rm -rf android ios .expo",
     "lint": "eslint .",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "postinstall": "npx tailwindcss -i ./global.css -o ./node_modules/.cache/nativewind/global.css"
   },
   "dependencies": {
     "@formatjs/intl-pluralrules": "^5.2.14",
