@@ -10,6 +10,7 @@ import {
 } from "@react-navigation/native";
 import { withLayoutContext } from "expo-router";
 import { createContext, useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useWindowDimensions, View } from "react-native";
 
 import type { LatLng } from "react-native-maps";
@@ -37,6 +38,7 @@ export default function CreateGameLayout() {
   const { width } = useWindowDimensions();
   const [gameLocation, setGameLocation] = useState<LatLng | null>(null);
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <View className="flex-1">
@@ -63,13 +65,13 @@ export default function CreateGameLayout() {
           <MaterialTopTabs.Screen
             name="index"
             options={{
-              title: "Geo Location",
+              title: t("Geo Location"),
             }}
           />
           <MaterialTopTabs.Screen
             name="game-data"
             options={{
-              title: "Game's data",
+              title: t("Game's Data"),
             }}
           />
         </MaterialTopTabs>

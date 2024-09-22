@@ -10,6 +10,7 @@ import { ActivityIndicator, Button } from "~/components/ui";
 
 import React from "react";
 
+import { t } from "i18next";
 import { GameCard } from "~/components/GameCard";
 
 export default function JoinedGames() {
@@ -45,9 +46,9 @@ export default function JoinedGames() {
   if (games.length === 0) {
     return (
       <View className="flex-1 items-center justify-center gap-3">
-        <Text>No games joined yet!</Text>
+        <Text>{t("No games joined yet")}!</Text>
         <Button onPress={() => router.push("/")}>
-          <Text>Join a Game</Text>
+          <Text>{t("Join a Game")}</Text>
         </Button>
       </View>
     );

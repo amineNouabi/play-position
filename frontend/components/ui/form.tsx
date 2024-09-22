@@ -501,7 +501,7 @@ const FormDatePickerNative = React.forwardRef<
                     ),
                   })}
                 >
-                  {value ? value : "Pick a date"}
+                  {value ? value : label}
                 </Text>
                 {!!value && (
                   <Button
@@ -784,6 +784,7 @@ const FormTimePickerNative = React.forwardRef<
         aria-invalid={!!error}
         onChange={onChange}
         value={value}
+        placeholder={label}
         {...props}
       />
       {!!description && <FormDescription>{description}</FormDescription>}

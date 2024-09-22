@@ -59,7 +59,7 @@ const updateLanguage = async (lng: Local) => {
  * @note: This function should be called once here in the localization/index.ts file
  */
 async function initI18n() {
-  const local = (await getLocal()) || (getLocales()[0].languageCode as Local);
+  const local = (await getLocal()) || (getLocales()[0]?.languageCode as Local);
 
   i18next.use(initReactI18next).init({
     resources,

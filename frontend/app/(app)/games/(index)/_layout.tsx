@@ -9,11 +9,11 @@ import {
   type TabNavigationState,
 } from "@react-navigation/native";
 import { router, withLayoutContext } from "expo-router";
-import { t } from "i18next";
 import { Pressable, useWindowDimensions, View } from "react-native";
 import { NAV_THEME } from "~/lib/constants";
 import { CircleFadingPlus } from "~/lib/icons";
 
+import { useTranslation } from "react-i18next";
 import { Text } from "~/components/ui/text";
 
 const { Navigator } = createMaterialTopTabNavigator();
@@ -28,6 +28,7 @@ const MaterialTopTabs = withLayoutContext<
 export default function MaterialTopTabsLayout() {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
+  const { t } = useTranslation();
 
   return (
     <View className="flex-1">
@@ -58,13 +59,13 @@ export default function MaterialTopTabsLayout() {
         <MaterialTopTabs.Screen
           name="index"
           options={{
-            title: "Joined Games",
+            title: t("Joined Games"),
           }}
         />
         <MaterialTopTabs.Screen
           name="created"
           options={{
-            title: "Created Games",
+            title: t("Created Games"),
           }}
         />
       </MaterialTopTabs>

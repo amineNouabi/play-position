@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import {
   ActivityIndicator,
@@ -20,6 +21,7 @@ export const JoinGameCard = ({
   onJoin: () => Promise<void>;
   loading: boolean;
 }) => {
+  const { t } = useTranslation();
   const datetime = new Date(game.start_time);
   const game_date = datetime.toLocaleDateString();
 
@@ -47,10 +49,10 @@ export const JoinGameCard = ({
     <Card className="p-2 mb-3 rounded-lg shadow-md flex-row justify-around">
       <View className="items-center justify-center">
         <Text>
-          {game.players_per_team} vs {game.players_per_team}
+          {game.players_per_team} {t("vs")} {game.players_per_team}
         </Text>
         <Text>
-          {game.free_spots} spot{game.free_spots > 1 ? "s" : ""}
+          {game.free_spots} {t(`spot${game.free_spots > 1 ? "s" : ""}`)}
         </Text>
       </View>
       <Separator orientation="vertical" />
@@ -73,7 +75,7 @@ export const JoinGameCard = ({
           {localLoading || loading ? (
             <ActivityIndicator size="small" />
           ) : (
-            <Text>Join</Text>
+            <Text>{t("Join")}</Text>
           )}
         </Button>
       </View>

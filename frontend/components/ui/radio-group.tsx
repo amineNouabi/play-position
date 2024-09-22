@@ -1,6 +1,7 @@
 import * as RadioGroupPrimitive from "@rn-primitives/radio-group";
 import * as React from "react";
 import { View } from "react-native";
+import { Label } from "~/components/ui/label";
 import { cn } from "~/lib/utils";
 
 const RadioGroup = React.forwardRef<
@@ -39,4 +40,23 @@ const RadioGroupItem = React.forwardRef<
 });
 RadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName;
 
-export { RadioGroup, RadioGroupItem };
+const RadioGroupItemWithLabel = ({
+  label,
+  value,
+  onLabelPress,
+}: {
+  label: string;
+  value: string;
+  onLabelPress: () => void;
+}) => {
+  return (
+    <View className={"flex-row gap-2 items-center"}>
+      <RadioGroupItem aria-labelledby={`label-for-${value}`} value={value} />
+      <Label nativeID={`label-for-${value}`} onPress={onLabelPress}>
+        {label}
+      </Label>
+    </View>
+  );
+};
+
+export { RadioGroup, RadioGroupItem, RadioGroupItemWithLabel };

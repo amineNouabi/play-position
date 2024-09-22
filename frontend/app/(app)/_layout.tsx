@@ -19,6 +19,7 @@ export default function RestrictedLayout() {
     <GeoLocationProvider>
       <Tabs
         screenOptions={{
+          headerTitleAlign: "center",
           headerRight: () => <HeaderRight />,
         }}
       >

@@ -42,7 +42,7 @@ const formSchema = z
       .number()
       .min(0, "Minimum 0 pre taken spots"),
     date: z.string().min(1, "Date is required"),
-    time: z.string(),
+    time: z.string().min(1, "Time is required"),
   })
   .superRefine((data, ctx) => {
     if (data.pre_taken_spots_team_a > data.players_per_team)
@@ -140,7 +140,7 @@ export default function GameData() {
               name="players_per_team"
               render={({ field }) => (
                 <FormInput
-                  label="Players per team"
+                  label={t("Players per team")}
                   placeholder="Number from 1 to 11"
                   keyboardType="numeric"
                   {...field}
@@ -149,14 +149,14 @@ export default function GameData() {
               )}
             />
             <View className="gap-3">
-              <Text className="text-md font-bold">Pre-taken spots</Text>
+              <Text className="text-md font-bold">{t("Pre-taken spots")}</Text>
               <View className="flex-row justify-around">
                 <FormField
                   control={form.control}
                   name="pre_taken_spots_team_a"
                   render={({ field }) => (
                     <FormInput
-                      label="Team A"
+                      label={t("Team A")}
                       placeholder="Number from 0 to 11"
                       keyboardType="numeric"
                       className="w-[150px]"
@@ -171,7 +171,7 @@ export default function GameData() {
                   disabled={loading}
                   render={({ field }) => (
                     <FormInput
-                      label="Team B"
+                      label={t("Team B")}
                       className="w-[150px]"
                       placeholder="Number from 0 to 11"
                       keyboardType="numeric"
@@ -188,7 +188,7 @@ export default function GameData() {
               disabled={loading}
               render={({ field }) => (
                 <FormDatePicker
-                  label="Game date"
+                  label={t("Game date")}
                   minDate={new Date().toDateString()}
                   {...field}
                 />
@@ -199,7 +199,7 @@ export default function GameData() {
               name="time"
               disabled={loading}
               render={({ field }) => (
-                <FormTimePicker label="Game time" {...field} />
+                <FormTimePicker label={t("Game time")} {...field} />
               )}
             />
           </View>

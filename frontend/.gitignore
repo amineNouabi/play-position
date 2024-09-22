@@ -5,6 +5,7 @@ google-services.json
 android/
 ios/
 supabase/
+.firebase/
 
 # dependencies
 node_modules/

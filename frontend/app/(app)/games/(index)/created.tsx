@@ -10,10 +10,12 @@ import { ActivityIndicator, Button } from "~/components/ui";
 
 import React from "react";
 
+import { useTranslation } from "react-i18next";
 import { GameCard } from "~/components/GameCard";
 
 export default function Index() {
   const { getCreatedGames } = useGamesApi();
+  const { t } = useTranslation();
 
   const {
     data: games,
@@ -44,9 +46,9 @@ export default function Index() {
   if (games.length === 0) {
     return (
       <View className="flex-1 items-center justify-center gap-3">
-        <Text>No games created yet!</Text>
+        <Text>{t("No games created yet")}!</Text>
         <Button onPress={() => router.push("/games/create")}>
-          <Text>Create a Game</Text>
+          <Text>{t("Create a Game")}</Text>
         </Button>
       </View>
     );

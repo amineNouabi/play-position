@@ -8,16 +8,18 @@ import { ActivityIndicator } from "~/components/ui/activity-indicator";
 import { FlashList } from "@shopify/flash-list";
 import { useQuery } from "@tanstack/react-query";
 import { Link, router } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { JoinGameCard } from "~/components/JoinGameCard";
 import { useGeoLocation } from "~/hooks/useGeoLocation";
 import { useGamesApi } from "~/lib/api/games/useGamesApi";
 import { useProfileApi } from "~/lib/api/profile/useProfileApi";
 
 export default function Index() {
-  const { getJoinableGames, joinGame, getJoinedGames } = useGamesApi();
+  const queryClient = useQueryClient();
+  const { t } = useTranslation();
+  const { getJoinableGames, joinGame } = useGamesApi();
   const { getProfile } = useProfileApi();
   const { location } = useGeoLocation();
-  const queryClient = useQueryClient();
 
   const {
     data: profile,
@@ -68,7 +70,9 @@ export default function Index() {
   if (errorProfile || error || !games) {
     return (
       <View className="flex-1 items-center justify-center p-6">
-        <Text>Error loading games</Text>
+        <Text>
+          {t("Error loading")} + " " + {t("Games")}
+        </Text>
       </View>
     );
   }
@@ -76,11 +80,11 @@ export default function Index() {
   if (games.length === 0) {
     return (
       <View className="flex-1 items-center justify-center p-6">
-        <Text>No games found</Text>
-        <Text>
-          Try increasing the search radius in your{" "}
+        <Text>{t("No games found")}</Text>
+        <Text className="text-center">
+          {t("Try increasing the search radius in your")}{" "}
           <Link className="text-primary font-bold underline" href="/profile">
-            Profile
+            {t("Profile")}
           </Link>
         </Text>
       </View>

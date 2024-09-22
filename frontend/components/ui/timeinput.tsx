@@ -14,6 +14,7 @@ import { Text } from "./text";
 type Props = {
   onChange: (date: string) => void;
   value?: string;
+  placeholder?: string;
 };
 
 // To remove Date logic from the component, since there is another component that handles it `FormDatePicker` in `components/ui/form.tsx`
@@ -22,7 +23,7 @@ type Props = {
 const TimeInput = React.forwardRef<
   React.ElementRef<typeof Button>,
   Props & Omit<React.ComponentPropsWithoutRef<typeof Input>, "onChange">
->(({ onChange, value, ...props }, ref) => {
+>(({ onChange, value, placeholder, ...props }, ref) => {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   function _onChange(_event: DateTimePickerEvent, selectedDate?: Date) {
@@ -64,7 +65,7 @@ const TimeInput = React.forwardRef<
                 ),
               })}
             >
-              {value ? new Date(date).toLocaleTimeString() : "Pick a time"}
+              {value ? new Date(date).toLocaleTimeString() : placeholder}
             </Text>
             {!!value && (
               <Button

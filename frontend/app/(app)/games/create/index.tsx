@@ -6,7 +6,6 @@ import { Map } from "~/components/ui/map";
 
 import { Button } from "~/components/ui/button";
 import { Text } from "~/components/ui/text";
-import { useColorScheme } from "~/hooks/useColorScheme";
 
 import { router } from "expo-router";
 import { useGeoLocation } from "~/hooks/useGeoLocation";
@@ -14,7 +13,6 @@ import { useCreateGameForm } from "./_layout";
 
 export default function GameLocation() {
   const { t } = useTranslation();
-  const { colorScheme } = useColorScheme();
   const { location } = useGeoLocation();
 
   const { gameLocation, setGameLocation } = useCreateGameForm();
@@ -38,7 +36,7 @@ export default function GameLocation() {
           className="absolute bottom-10 self-center"
           onPress={() => router.push("/games/create/game-data")}
         >
-          <Text>Next</Text>
+          <Text>{t("Next")}</Text>
         </Button>
       )}
     </View>
