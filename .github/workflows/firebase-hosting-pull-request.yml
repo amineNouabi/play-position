@@ -17,6 +17,15 @@ jobs:
         run: npm install -g pnpm
       - name: Install dependencies and build
       - run: cd frontend && pnpm i && npx expo install --check && pnpm build
+      - name: write .env file
+        env:
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_KEY }}
+          EXPO_PUBLIC_GOOGLE_MAPS_KEY: ${{ secrets.EXPO_PUBLIC_GOOGLE_MAPS_KEY }}
+        run: |
+          echo "EXPO_PUBLIC_SUPABASE_URL=${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}" > frontend/.env
+          echo "EXPO_PUBLIC_SUPABASE_KEY=${{ secrets.EXPO_PUBLIC_SUPABASE_KEY }}" >> frontend/.env
+          echo "EXPO_PUBLIC_GOOGLE_MAPS_KEY=${{ secrets.EXPO_PUBLIC_GOOGLE_MAPS_KEY }}" >> frontend/.env
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
