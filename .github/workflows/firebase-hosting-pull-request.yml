@@ -22,3 +22,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PLAY_POSITION_96C34 }}
           projectId: play-position-96c34
+          projectPath: frontend
