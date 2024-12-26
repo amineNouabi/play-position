@@ -8,6 +8,7 @@
 
 Play Position is cross-platform mobile application that allows users to create and join local soccer games. The app is designed to help users find local soccer games and players to play with. Users can create games, join games, and view games in their area.
 
+**Link to the web app:**
 [Play Position](https://play-position-96c34.web.app)
 
 # 2. Features
@@ -66,3 +67,7 @@ pnpm ios # for ios
 
 - [Ahmed Amine Nouabi](https://github.com/amineNouabi)
 - [Youssef Acherki]()
+
+# 6. Licensing
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
